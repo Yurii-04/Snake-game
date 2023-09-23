@@ -1,0 +1,9 @@
+.snake__wrapper {    
+    display: flex;
+    justify-content: center;
+    max-height: 100vh;
+}
+
+.snake__p {
+    text-align: center;
+}

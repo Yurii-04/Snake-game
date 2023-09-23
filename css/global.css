@@ -1,0 +1,33 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    
+}
+
+body {
+    background: rgb(223, 222, 246);
+    background: linear-gradient(
+        90deg,
+        rgba(223, 222, 246, 1) 0%,
+        rgba(124, 222, 233, 1) 42%,
+        rgba(15, 166, 196, 1) 85%
+    );
+    overflow: hidden;
+}
+
+:root {
+    font-family: "Roboto Mono", monospace;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.none {
+    display: none;
+}
