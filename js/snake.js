@@ -34,8 +34,8 @@ class Block {
 class Snake {
     constructor() {
         this.segments = [new Block(7, 5), new Block(6, 5), new Block(5, 5)];
-        this.direction = "right";
-        this.nextDirection = "right";
+        this._direction = "right";
+        this._nextDirection = "right";
     }
 
     draw() {
@@ -44,7 +44,7 @@ class Snake {
 
     move() {
         const head = this.segments[0];
-        this.direction = this.nextDirection;
+        this._direction = this._nextDirection;
         const directions = {
             right: new Block(1, 0),
             left: new Block(-1, 0),
@@ -52,8 +52,8 @@ class Snake {
             up: new Block(0, -1),
         };
         const newHead = new Block(
-            head.col + directions[this.direction].col,
-            head.row + directions[this.direction].row
+            head.col + directions[this._direction].col,
+            head.row + directions[this._direction].row
         );
 
         if (this.checkCollision(newHead)) {
@@ -93,8 +93,8 @@ class Snake {
             right: "left",
         };
 
-        if (newDirection !== oppositeDirections[this.direction]) {
-            this.nextDirection = newDirection;
+        if (newDirection !== oppositeDirections[this._direction]) {
+            this._nextDirection = newDirection;
         }
     }
 
@@ -111,13 +111,29 @@ class Snake {
         ctx.fillStyle = "Black";
         ctx.fillText("Score: " + score, width / 2, height / 2 + 20);
         ctx.fillText(
-            "Snake Length: " + snake.segments.length,
+            "Snake Length: " + this.length,
             width / 2,
             height / 2 + 60
         );
         setTimeout(() => {
             startGame();
         }, 1000);
+    }
+
+    get direction() {
+        return this._direction;
+    }
+
+    get nextDirection() {
+        return this._nextDirection;
+    }
+
+    set nextDirection(newDirection) {
+        this._nextDirection = newDirection;
+    }
+
+    get length() {
+        return this.segments.length;
     }
 }
 
