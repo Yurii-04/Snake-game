@@ -1,4 +1,4 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.querySelector("#canvas");
 const paragraph = document.querySelector(".snake__p");
 const ctx = canvas.getContext("2d");
 const width = canvas.width;
@@ -227,4 +227,51 @@ document.addEventListener("keydown", (event) => {
 
 paragraph.addEventListener("click", function () {
     startGame();
+});
+
+// Control on phones
+canvas.addEventListener("touchstart", handleTouchStart, false);
+canvas.addEventListener("touchmove", handleTouchMove, false);
+
+let touchStartX;
+let touchStartY;
+
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+    if (!touchStartX || !touchStartY) return;
+
+    const touchEndX = event.touches[0].clientX;
+    const touchEndY = event.touches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal movement
+        if (deltaX > 0) {
+            snake.setDirection("right");
+        } else {
+            snake.setDirection("left");
+        }
+    } else {
+        // Vertical movement
+        if (deltaY > 0) {
+            snake.setDirection("down");
+        } else {
+            snake.setDirection("up");
+        }
+    }
+
+    touchStartX = null;
+    touchStartY = null;
+}
+
+// Clear touch coordinates when a touch is complete
+canvas.addEventListener("touchend", () => {
+    touchStartX = null;
+    touchStartY = null;
 });
